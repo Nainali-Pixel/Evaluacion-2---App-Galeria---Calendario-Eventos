@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AgendaEventos</string>
+    <string name="titulo_main">Mis fechas</string>
+    <string name="subtitulo_main">Galería conectada al calendario</string>
+    <string name="filtro_todos">Todos</string>
+    <string name="filtro_cumpleanos">Cumpleaños</string>
+    <string name="filtro_evento">Evento</string>
+    <string name="nueva_anotacion">+ Nueva anotación</string>
+    <string name="lista_vacia">Aún no tienes anotaciones.\nToca + Nueva anotación para crear la primera.</string>
+    <string name="imagen_predeterminada">Imagen\npredet.</string>
+    <string name="desc_miniatura">Miniatura de la anotación</string>
+    <string name="fecha_hora">%1$s · %2$s</string>
 </resources>
