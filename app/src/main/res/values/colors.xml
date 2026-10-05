@@ -1,5 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Temática: Negro y mostaza elegante -->
+    <color name="color_encabezado">#1C1C1C</color>
+    <color name="texto_encabezado">#FFFFFF</color>
+    <color name="subtitulo_encabezado">#BDBDBD</color>
+
+    <color name="color_primario">#1C1C1C</color>
+    <color name="texto_sobre_primario">#FFFFFF</color>
+    <color name="color_acento">#E8A500</color>
+    <color name="texto_sobre_acento">#1C1C1C</color>
+
+    <color name="fondo">#F7F7F5</color>
+    <color name="superficie">#FFFFFF</color>
+    <color name="texto_principal">#1C1C1C</color>
+    <color name="texto_secundario">#6B6B6B</color>
+
+    <color name="tipo_cumpleanos">#B8860B</color>
+    <color name="tipo_evento">#1C1C1C</color>
+    <color name="tipo_otro">#8A8A8A</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>
