@@ -12,6 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgendaEventos">
         <activity
+            android:name=".PhotoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConfirmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FormActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
