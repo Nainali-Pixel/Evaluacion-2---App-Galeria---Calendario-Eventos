@@ -1,18 +1,19 @@
 <resources>
-    <!-- Temática: Negro y mostaza -->
-    <color name="color_primario">#1C1C1C</color>        <!-- encabezado, chip activo -->
-    <color name="color_acento">#E8A500</color>          <!-- botón "+ Nueva anotación" -->
-    <color name="texto_sobre_primario">#FFFFFF</color>  <!-- texto encima del negro -->
-    <color name="texto_sobre_acento">#1C1C1C</color>    <!-- texto encima del mostaza -->
+    <!-- Temática: Negro y mostaza elegante -->
+    <color name="color_encabezado">#1C1C1C</color>
+    <color name="texto_encabezado">#FFFFFF</color>
     <color name="subtitulo_encabezado">#BDBDBD</color>
 
-    <!-- Fondos y textos -->
+    <color name="color_primario">#1C1C1C</color>
+    <color name="texto_sobre_primario">#FFFFFF</color>
+    <color name="color_acento">#E8A500</color>
+    <color name="texto_sobre_acento">#1C1C1C</color>
+
     <color name="fondo">#F7F7F5</color>
     <color name="superficie">#FFFFFF</color>
     <color name="texto_principal">#1C1C1C</color>
     <color name="texto_secundario">#6B6B6B</color>
 
-    <!-- Un color por tipo de evento -->
     <color name="tipo_cumpleanos">#B8860B</color>
     <color name="tipo_evento">#1C1C1C</color>
     <color name="tipo_otro">#8A8A8A</color>
