@@ -1,10 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FormActivity">
+    android:background="@color/fondo"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Encabezado con botón Atrás -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_encabezado"
+        android:minHeight="@dimen/alto_barra_superior"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationIconTint="@color/texto_encabezado"
+        app:title="@string/titulo_form"
+        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+        app:titleTextColor="@color/texto_encabezado" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/formulario_padding">
+
+            <!-- Título -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contenedorTitulo"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_titulo"
+                app:boxBackgroundColor="@color/superficie"
+                app:boxStrokeColor="@color/color_primario"
+                app:hintTextColor="@color/color_primario">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/campoTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLength="60"
+                    android:maxLines="1"
+                    android:textColor="@color/texto_principal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Fecha y hora -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:layout_marginTop="@dimen/formulario_separacion_campos"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/contenedorFecha"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/formulario_separacion_pequena"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_fecha"
+                    app:boxBackgroundColor="@color/superficie"
+                    app:boxStrokeColor="@color/color_primario"
+                    app:hintTextColor="@color/color_primario">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/campoFecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:textColor="@color/texto_principal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/contenedorHora"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/formulario_separacion_pequena"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_hora"
+                    app:boxBackgroundColor="@color/superficie"
+                    app:boxStrokeColor="@color/color_primario"
+                    app:hintTextColor="@color/color_primario">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/campoHora"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:textColor="@color/texto_principal" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Tipo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/formulario_separacion_secciones"
+                android:text="@string/etiqueta_tipo"
+                android:textColor="@color/texto_principal"
+                android:textSize="@dimen/formulario_texto_etiqueta"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/formulario_separacion_pequena"
+                app:cardBackgroundColor="@color/superficie"
+                app:cardCornerRadius="@dimen/radio_pequeno"
+                app:cardElevation="@dimen/sin_elevacion"
+                app:strokeColor="@color/color_primario"
+                app:strokeWidth="@dimen/grosor_borde">
+
+                <Spinner
+                    android:id="@+id/spinnerTipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/formulario_alto_campo" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Foto opcional -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/formulario_separacion_secciones"
+                android:text="@string/etiqueta_foto"
+                android:textColor="@color/texto_principal"
+                android:textSize="@dimen/formulario_texto_etiqueta"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:layout_marginTop="@dimen/formulario_separacion_pequena"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/botonTomarFoto"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/formulario_alto_campo"
+                    android:layout_marginEnd="@dimen/formulario_separacion_pequena"
+                    android:layout_weight="1"
+                    android:text="@string/boton_tomar_foto"
+                    android:textColor="@color/color_primario"
+                    app:strokeColor="@color/color_primario" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/botonElegirGaleria"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/formulario_alto_campo"
+                    android:layout_marginStart="@dimen/formulario_separacion_pequena"
+                    android:layout_weight="1"
+                    android:text="@string/boton_elegir_galeria"
+                    android:textColor="@color/color_primario"
+                    app:strokeColor="@color/color_primario" />
+            </LinearLayout>
+
+            <!-- Vista previa: foto elegida o imagen predeterminada del tipo -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tarjetaVistaPrevia"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/formulario_alto_vista_previa"
+                android:layout_marginTop="@dimen/formulario_separacion_vista_previa"
+                app:cardCornerRadius="@dimen/radio_mediano"
+                app:cardElevation="@dimen/sin_elevacion"
+                app:strokeWidth="@dimen/sin_borde">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imagenVistaPrevia"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/desc_vista_previa"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/textoVistaPrevia"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="@dimen/formulario_padding_texto_vista_previa"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/formulario_texto_vista_previa" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Guardar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/botonGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/formulario_alto_boton_guardar"
+                android:layout_marginTop="@dimen/formulario_separacion_secciones"
+                android:text="@string/boton_guardar"
+                android:textColor="@color/texto_sobre_primario"
+                android:textStyle="bold"
+                app:backgroundTint="@color/color_primario" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

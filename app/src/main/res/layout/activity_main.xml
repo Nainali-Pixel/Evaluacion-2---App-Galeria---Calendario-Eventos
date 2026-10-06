@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_encabezado"
-            android:minHeight="80dp"
+            android:minHeight="@dimen/alto_barra_superior"
             app:title="@string/titulo_main"
             app:subtitle="@string/subtitulo_main"
             app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
@@ -30,8 +30,8 @@
             android:id="@+id/chipGroupFiltros"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="12dp"
+            android:paddingHorizontal="@dimen/filtros_padding_horizontal"
+            android:paddingTop="@dimen/filtros_padding_superior"
             app:selectionRequired="true"
             app:singleLine="true"
             app:singleSelection="true">
@@ -70,16 +70,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="96dp" />
+                android:paddingHorizontal="@dimen/lista_padding_horizontal"
+                android:paddingTop="@dimen/lista_padding_superior"
+                android:paddingBottom="@dimen/lista_padding_inferior" />
 
             <TextView
                 android:id="@+id/txtVacio"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="32dp"
+                android:padding="@dimen/mensaje_vacio_padding"
                 android:text="@string/lista_vacia"
                 android:textColor="@color/texto_secundario"
                 android:visibility="gone" />
@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margen_boton_flotante"
         android:text="@string/nueva_anotacion"
         android:textColor="@color/texto_sobre_acento"
         app:backgroundTint="@color/color_acento" />

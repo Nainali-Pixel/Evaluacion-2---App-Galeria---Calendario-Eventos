@@ -1,0 +1,43 @@
+<resources>
+    <!-- ===== Generales (se usan en varias pantallas) ===== -->
+    <dimen name="alto_barra_superior">80dp</dimen>
+    <dimen name="radio_pequeno">8dp</dimen>
+    <dimen name="radio_mediano">12dp</dimen>
+    <dimen name="sin_elevacion">0dp</dimen>
+    <dimen name="sin_borde">0dp</dimen>
+    <dimen name="grosor_borde">1dp</dimen>
+    <dimen name="margen_boton_flotante">20dp</dimen>
+
+    <!-- ===== MainActivity (lista) ===== -->
+    <dimen name="filtros_padding_horizontal">16dp</dimen>
+    <dimen name="filtros_padding_superior">12dp</dimen>
+    <dimen name="lista_padding_horizontal">16dp</dimen>
+    <dimen name="lista_padding_superior">12dp</dimen>
+    <dimen name="lista_padding_inferior">96dp</dimen>
+    <dimen name="mensaje_vacio_padding">32dp</dimen>
+
+    <!-- ===== Tarjeta de cada evento (item_evento) ===== -->
+    <dimen name="evento_separacion_entre_tarjetas">10dp</dimen>
+    <dimen name="evento_padding">12dp</dimen>
+    <dimen name="evento_miniatura_tamano">64dp</dimen>
+    <dimen name="evento_miniatura_texto">10sp</dimen>
+    <dimen name="evento_separacion_izquierda_textos">14dp</dimen>
+    <dimen name="evento_titulo_texto">16sp</dimen>
+    <dimen name="evento_fecha_separacion_superior">2dp</dimen>
+    <dimen name="evento_fecha_texto">13sp</dimen>
+    <dimen name="evento_tipo_separacion_superior">4dp</dimen>
+    <dimen name="evento_tipo_texto">12sp</dimen>
+
+    <!-- ===== FormActivity (formulario) ===== -->
+    <dimen name="formulario_padding">20dp</dimen>
+    <dimen name="formulario_separacion_campos">14dp</dimen>
+    <dimen name="formulario_separacion_secciones">16dp</dimen>
+    <dimen name="formulario_separacion_pequena">6dp</dimen>
+    <dimen name="formulario_separacion_vista_previa">12dp</dimen>
+    <dimen name="formulario_alto_campo">52dp</dimen>
+    <dimen name="formulario_alto_boton_guardar">56dp</dimen>
+    <dimen name="formulario_alto_vista_previa">150dp</dimen>
+    <dimen name="formulario_padding_texto_vista_previa">16dp</dimen>
+    <dimen name="formulario_texto_etiqueta">13sp</dimen>
+    <dimen name="formulario_texto_vista_previa">14sp</dimen>
+</resources>
