@@ -19,6 +19,7 @@ import java.util.List;
 
 import com.ageneven.agendaeventos.R;
 import com.ageneven.agendaeventos.model.Evento;
+import com.ageneven.agendaeventos.util.ImagenUtil;
 
 /** Convierte cada Evento de la lista en una tarjeta visible. */
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoViewHolder> {
@@ -73,8 +74,8 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         if (fotoMostrada) {
             holder.txtMiniatura.setVisibility(View.GONE);
         } else {
-            holder.imgMiniatura.setImageDrawable(null);
-            holder.txtMiniatura.setVisibility(View.VISIBLE);
+            holder.imgMiniatura.setImageResource(ImagenUtil.drawablePorTipo(evento.getTipo()));
+            holder.txtMiniatura.setVisibility(View.GONE);
         }
 
         // Al tocar la tarjeta, avisa a la Activity

@@ -10,4 +10,49 @@
     <string name="imagen_predeterminada">Imagen\npredet.</string>
     <string name="desc_miniatura">Miniatura de la anotación</string>
     <string name="fecha_hora">%1$s · %2$s</string>
+
+    <!-- Detalle -->
+    <string name="titulo_detalle">Detalle</string>
+    <string name="desc_volver">Volver</string>
+    <string name="desc_foto_evento">Foto o imagen de la anotación</string>
+    <string name="toca_ampliar">Toca para ampliar</string>
+    <string name="btn_agregar_calendario">Agregar al calendario</string>
+    <string name="btn_enviar_correo">Enviar por correo</string>
+    <string name="error_datos_detalle">No se pudo abrir la anotación.</string>
+    <string name="error_fecha_invalida">La fecha u hora de la anotación no es válida.</string>
+    <string name="error_sin_calendario">No hay una app de calendario instalada.</string>
+    <string name="error_sin_correo">No hay una app de correo instalada.</string>
+    <string name="asunto_correo">Recordatorio: %1$s</string>
+    <string name="cuerpo_correo">Recordatorio de mi agenda\n\nTítulo: %1$s\nFecha: %2$s\nHora: %3$s\nTipo: %4$s</string>
+    <string name="elegir_app_correo">Enviar recordatorio con…</string>
+
+    <!-- Formulario -->
+    <string name="titulo_form">Nueva anotación</string>
+    <string name="label_titulo">Título</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_hora">Hora</string>
+    <string name="label_tipo">Tipo</string>
+    <string name="label_foto">Foto (opcional)</string>
+    <string name="btn_tomar_foto">Tomar foto</string>
+    <string name="btn_elegir_galeria">Elegir de galería</string>
+    <string name="btn_quitar_foto">Quitar foto</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="desc_vista_previa">Vista previa de la imagen</string>
+    <string name="error_titulo_vacio">Escribe un título</string>
+    <string name="anotacion_guardada">Anotación guardada</string>
+    <string name="error_foto">No se pudo procesar la imagen.</string>
+    <string name="error_sin_camara">No se pudo abrir la cámara.</string>
+    <string name="error_sin_galeria">No se pudo abrir la galería.</string>
+
+    <!-- Permisos -->
+    <string name="permiso_camara_titulo">Permiso de cámara</string>
+    <string name="permiso_camara_explicacion">Necesitamos acceder a la cámara para que puedas tomar una foto y adjuntarla a tu anotación.</string>
+    <string name="permiso_galeria_titulo">Permiso de galería</string>
+    <string name="permiso_galeria_explicacion">Necesitamos acceder a tus fotos para que puedas elegir una imagen y adjuntarla a tu anotación.</string>
+    <string name="permiso_denegado_camara">Sin permiso de cámara no se puede tomar la foto. Se usará la imagen predeterminada.</string>
+    <string name="permiso_denegado_galeria">Sin permiso de galería no se puede elegir una foto. Se usará la imagen predeterminada.</string>
+    <string name="permiso_bloqueado">Denegaste este permiso de forma permanente. Puedes activarlo desde los ajustes de la app.</string>
+    <string name="btn_continuar">Continuar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_abrir_ajustes">Abrir ajustes</string>
 </resources>

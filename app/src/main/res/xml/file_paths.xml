@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Fotos de las anotaciones: /files/fotos/ (almacenamiento privado de la app) -->
+    <files-path name="fotos" path="fotos/" />
+</paths>
