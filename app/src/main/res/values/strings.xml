@@ -77,4 +77,6 @@
 
     <string name="btn_camara_frontal">Cámara frontal</string>
     <string name="error_sin_camara_frontal">Este equipo no tiene cámara frontal.</string>
+    <string name="aviso_lista_guardada">«%1$s» se guardó en tu agenda</string>
+    <string name="aviso_lista_eliminada">«%1$s» se eliminó de tu agenda</string>
 </resources>

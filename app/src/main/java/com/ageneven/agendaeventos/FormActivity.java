@@ -32,6 +32,7 @@ import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -417,6 +418,10 @@ public class FormActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.anotacion_actualizada, Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK);
         }
+        // EXPLÍCITO 13: avisa a MainActivity con LocalBroadcastManager
+        Intent aviso = new Intent(Constantes.ACCION_EVENTO_GUARDADO);
+        aviso.putExtra(Constantes.EXTRA_TITULO, titulo);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(aviso);
         finish(); // MainActivity se actualiza en onResume()
     }
 

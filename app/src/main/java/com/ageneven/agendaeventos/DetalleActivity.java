@@ -175,6 +175,13 @@ public class DetalleActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.error_eliminar, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // EXPLÍCITO 8: broadcast interno (solo lo recibe esta app)
+        Intent aviso = new Intent(Constantes.ACCION_EVENTO_ELIMINADO);
+        aviso.setPackage(getPackageName());
+        aviso.putExtra(Constantes.EXTRA_TITULO, titulo);
+        sendBroadcast(aviso);
+
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.titulo_eliminada)
                 .setMessage(getString(R.string.mensaje_eliminada, titulo))
