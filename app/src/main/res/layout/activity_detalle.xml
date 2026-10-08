@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_encabezado"
-        android:minHeight="64dp"
+        android:minHeight="@dimen/alto_barra_secundaria"
         app:navigationContentDescription="@string/desc_volver"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:title="@string/titulo_detalle"
@@ -33,86 +33,140 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Foto adjunta o imagen predeterminada del tipo -->
-            <FrameLayout
+            <!-- Foto adjunta con bordes muy redondeados -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="240dp">
+                android:layout_height="@dimen/alto_foto_detalle"
+                android:layout_margin="@dimen/separacion_amplia"
+                app:cardCornerRadius="@dimen/radio_grande"
+                app:cardElevation="@dimen/elevacion_suave"
+                app:strokeColor="@color/texto_secundario"
+                app:strokeWidth="@dimen/grosor_borde">
 
-                <ImageView
-                    android:id="@+id/imgDetalle"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/desc_foto_evento"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/txtAmpliar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="12dp"
-                    android:background="#99000000"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:text="@string/toca_ampliar"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
-            </FrameLayout>
+                    <ImageView
+                        android:id="@+id/imgDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/desc_foto_evento"
+                        android:scaleType="centerCrop" />
 
-            <!-- Datos -->
-            <LinearLayout
+                    <TextView
+                        android:id="@+id/txtAmpliar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="@dimen/separacion_amplia"
+                        android:background="#99000000"
+                        android:paddingHorizontal="@dimen/separacion_normal"
+                        android:paddingVertical="@dimen/separacion_chica"
+                        android:text="@string/toca_ampliar"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/texto_pequeno"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Datos dentro de una tarjeta con bordes muy redondeados y suaves -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:layout_marginHorizontal="@dimen/separacion_amplia"
+                android:layout_marginBottom="@dimen/separacion_extra"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radio_grande"
+                app:cardElevation="@dimen/elevacion_media"
+                app:strokeColor="@color/texto_secundario"
+                app:strokeWidth="@dimen/grosor_borde">
 
-                <TextView
-                    android:id="@+id/txtTituloDetalle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/texto_principal"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/separacion_extra">
 
-                <TextView
-                    android:id="@+id/txtFechaHoraDetalle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/texto_secundario"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txtTituloDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/texto_principal"
+                        android:textSize="@dimen/texto_titulo_grande"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtTipoDetalle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:letterSpacing="0.05"
-                    android:textAllCaps="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/txtFechaHoraDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/separacion_compacta"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="@dimen/texto_mediano" />
 
-                <!-- Solo dos acciones: calendario y correo -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAgregarCalendario"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/btn_agregar_calendario"
-                    android:textColor="@color/texto_sobre_acento"
-                    app:backgroundTint="@color/color_acento" />
+                    <TextView
+                        android:id="@+id/txtTipoDetalle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/separacion_normal"
+                        android:background="@color/fondo"
+                        android:paddingHorizontal="@dimen/separacion_normal"
+                        android:paddingVertical="@dimen/separacion_muy_chica"
+                        android:letterSpacing="0.05"
+                        android:textAllCaps="true"
+                        android:textColor="@color/texto_principal"
+                        android:textSize="@dimen/texto_etiqueta_chica"
+                        android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEnviarCorreo"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/btn_enviar_correo"
-                    android:textColor="@color/texto_principal"
-                    app:strokeColor="@color/color_primario" />
-            </LinearLayout>
+                    <!-- Botones  -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAgregarCalendario"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/alto_boton"
+                        android:layout_marginTop="@dimen/separacion_maxima"
+                        android:text="@string/btn_agregar_calendario"
+                        android:textColor="@color/texto_sobre_acento"
+                        app:backgroundTint="@color/color_acento"
+                        app:cornerRadius="@dimen/radio_grande"
+                        app:strokeColor="@color/texto_secundario"
+                        app:strokeWidth="@dimen/grosor_borde" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEnviarCorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/alto_boton"
+                        android:layout_marginTop="@dimen/separacion_normal"
+                        android:text="@string/btn_enviar_correo"
+                        android:textColor="@color/texto_sobre_primario"
+                        app:backgroundTint="@color/color_primario"
+                        app:cornerRadius="@dimen/radio_grande"
+                        app:strokeColor="@color/texto_secundario"
+                        app:strokeWidth="@dimen/grosor_borde" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEditar"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/alto_boton"
+                        android:layout_marginTop="@dimen/separacion_normal"
+                        android:text="@string/btn_editar"
+                        android:textColor="@color/texto_sobre_primario"
+                        app:backgroundTint="@color/color_primario"
+                        app:cornerRadius="@dimen/radio_grande"
+                        app:strokeColor="@color/texto_secundario" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEliminar"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/alto_boton"
+                        android:layout_marginTop="@dimen/separacion_normal"
+                        android:text="@string/btn_eliminar"
+                        android:textColor="?attr/colorError"
+                        app:cornerRadius="@dimen/radio_grande"
+                        app:strokeColor="?attr/colorError" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

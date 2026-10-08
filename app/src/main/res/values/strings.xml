@@ -55,4 +55,26 @@
     <string name="btn_continuar">Continuar</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="btn_abrir_ajustes">Abrir ajustes</string>
+
+    <!-- Editar y eliminar -->
+    <string name="btn_editar">Editar anotación</string>
+    <string name="btn_eliminar">Eliminar anotación</string>
+    <string name="titulo_editar">Editar anotación</string>
+    <string name="btn_guardar_cambios">Guardar cambios</string>
+    <string name="anotacion_actualizada">Anotación actualizada</string>
+    <string name="error_sin_cambios">No hay cambios que guardar.</string>
+    <string name="error_titulo_largo">El título puede tener máximo %1$d caracteres</string>
+    <string name="error_tipo_vacio">Selecciona un tipo</string>
+    <string name="error_actualizar">No se pudo actualizar la anotación.</string>
+    <string name="error_anotacion_no_encontrada">La anotación ya no existe.</string>
+    <string name="titulo_confirmar_eliminar">¿Eliminar anotación?</string>
+    <string name="mensaje_confirmar_eliminar">Se eliminará «%1$s» y no se podrá recuperar.</string>
+    <string name="btn_si_eliminar">Sí, eliminar</string>
+    <string name="titulo_eliminada">Anotación eliminada</string>
+    <string name="mensaje_eliminada">«%1$s» se eliminó correctamente.</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="error_eliminar">No se pudo eliminar la anotación.</string>
+
+    <string name="btn_camara_frontal">Cámara frontal</string>
+    <string name="error_sin_camara_frontal">Este equipo no tiene cámara frontal.</string>
 </resources>

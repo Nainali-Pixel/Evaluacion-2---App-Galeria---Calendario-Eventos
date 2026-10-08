@@ -32,9 +32,16 @@ import com.ageneven.agendaeventos.model.Evento;
 import com.ageneven.agendaeventos.util.Constantes;
 import com.ageneven.agendaeventos.util.ImagenUtil;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.ageneven.agendaeventos.data.EventoRepositorio;
+
 /**
- * Detalle de una anotación. Recibe los datos desde MainActivity (putExtra) y ofrece
- * solo dos acciones: agregar al calendario y enviar por correo.
+ * Detalle de una anotación. Recibe los datos desde MainActivity (putExtra) y permite
+ * agregarla al calendario, enviarla por correo, editarla y eliminarla.
  */
 public class DetalleActivity extends AppCompatActivity {
 
@@ -49,6 +56,22 @@ public class DetalleActivity extends AppCompatActivity {
     private ImageView imgDetalle;
     private TextView txtAmpliar;
 
+    private long idEvento;
+    private TextView txtTitulo, txtFechaHora, txtTipo;
+
+    //Recibe el resultado de la pantalla de edición
+    private final ActivityResultLauncher<Intent> lanzadorEdicion = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult resultado) {
+                    if (resultado.getResultCode() == RESULT_OK) {
+                        recargarDesdeRepositorio();
+                    }
+                }
+            }
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +81,13 @@ public class DetalleActivity extends AppCompatActivity {
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         imgDetalle = findViewById(R.id.imgDetalle);
         txtAmpliar = findViewById(R.id.txtAmpliar);
-        TextView txtTitulo = findViewById(R.id.txtTituloDetalle);
-        TextView txtFechaHora = findViewById(R.id.txtFechaHoraDetalle);
-        TextView txtTipo = findViewById(R.id.txtTipoDetalle);
+        txtTitulo = findViewById(R.id.txtTituloDetalle);
+        txtFechaHora = findViewById(R.id.txtFechaHoraDetalle);
+        txtTipo = findViewById(R.id.txtTipoDetalle);
         MaterialButton btnCalendario = findViewById(R.id.btnAgregarCalendario);
         MaterialButton btnCorreo = findViewById(R.id.btnEnviarCorreo);
+        MaterialButton btnEditar = findViewById(R.id.btnEditar);
+        MaterialButton btnEliminar = findViewById(R.id.btnEliminar);
 
         ajustarBordes(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -75,15 +100,16 @@ public class DetalleActivity extends AppCompatActivity {
         }
 
         // 2. Mostrar los datos
-        txtTitulo.setText(titulo);
-        txtFechaHora.setText(getString(R.string.fecha_hora, fecha, hora));
-        txtTipo.setText(tipo);
-        txtTipo.setTextColor(ContextCompat.getColor(this, colorPorTipo(tipo)));
-        mostrarImagen();
+        mostrarDatos();
 
         // 3. Las dos únicas acciones
         btnCalendario.setOnClickListener(v -> agregarAlCalendario());
         btnCorreo.setOnClickListener(v -> enviarPorCorreo());
+
+
+        // 4. Editar y eliminar
+        btnEditar.setOnClickListener(v -> abrirEdicion());
+        btnEliminar.setOnClickListener(v -> confirmarEliminacion());
     }
 
     /** Devuelve false si faltan los datos mínimos para mostrar la pantalla. */
@@ -94,9 +120,67 @@ public class DetalleActivity extends AppCompatActivity {
         hora = intent.getStringExtra(Constantes.EXTRA_HORA);
         tipo = intent.getStringExtra(Constantes.EXTRA_TIPO);
         fotoUri = intent.getStringExtra(Constantes.EXTRA_FOTO_URI);
+        idEvento = intent.getLongExtra(Constantes.EXTRA_ID, -1);
 
         if (tipo == null || tipo.isEmpty()) tipo = Evento.TIPO_OTRO;
-        return titulo != null && fecha != null && hora != null;
+        return titulo != null && fecha != null && hora != null && idEvento != -1;
+    }
+
+
+    /** Después de editar, vuelve a leer la anotación y actualiza la pantalla. */
+    private void recargarDesdeRepositorio() {
+        Evento actualizada = EventoRepositorio.getInstancia().buscarPorId(idEvento);
+        if (actualizada == null) {
+            finish();
+            return;
+        }
+        titulo = actualizada.getTitulo();
+        fecha = actualizada.getFecha();
+        hora = actualizada.getHora();
+        tipo = actualizada.getTipo();
+        fotoUri = actualizada.getFotoUri();
+        mostrarDatos();
+    }
+
+    /** Muestra los datos de la anotación en pantalla. */
+    private void mostrarDatos() {
+        txtTitulo.setText(titulo);
+        txtFechaHora.setText(getString(R.string.fecha_hora, fecha, hora));
+        txtTipo.setText(tipo);
+        txtTipo.setTextColor(ContextCompat.getColor(this, colorPorTipo(tipo)));
+        mostrarImagen();
+    }
+
+    /** EXPLÍCITO con resultado: DetalleActivity → FormActivity (modo edición). */
+    private void abrirEdicion() {
+        Intent intent = new Intent(this, FormActivity.class);
+        intent.putExtra(Constantes.EXTRA_ID, idEvento);
+        lanzadorEdicion.launch(intent);
+    }
+
+    /** Primer mensaje: pregunta si de verdad quiere eliminar. */
+    private void confirmarEliminacion() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.titulo_confirmar_eliminar)
+                .setMessage(getString(R.string.mensaje_confirmar_eliminar, titulo))
+                .setPositiveButton(R.string.btn_si_eliminar, (dialogo, boton) -> eliminarAnotacion())
+                .setNegativeButton(R.string.btn_cancelar, null)
+                .show();
+    }
+
+    /** Elimina la anotación y muestra el segundo mensaje validando la eliminación. */
+    private void eliminarAnotacion() {
+        boolean fueEliminada = EventoRepositorio.getInstancia().eliminar(idEvento);
+        if (!fueEliminada) {
+            Toast.makeText(this, R.string.error_eliminar, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.titulo_eliminada)
+                .setMessage(getString(R.string.mensaje_eliminada, titulo))
+                .setCancelable(false)
+                .setPositiveButton(R.string.btn_aceptar, (dialogo, boton) -> finish())
+                .show();
     }
 
     /** Foto del usuario; si no hay (o ya no existe), imagen predeterminada del tipo. */

@@ -2,6 +2,7 @@ package com.ageneven.agendaeventos.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.ageneven.agendaeventos.util.ImagenUtil;
 
 import com.ageneven.agendaeventos.model.Evento;
 
@@ -51,5 +52,37 @@ public class EventoRepositorio {
         Evento nuevo = new Evento(siguienteId++, titulo, fecha, hora, tipo, fotoUri);
         eventos.add(nuevo);
         return nuevo;
+    }
+
+    /** Busca una anotación por su id (null si no existe). */
+    public Evento buscarPorId(long id) {
+        for (Evento e : eventos) {
+            if (e.getId() == id) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    /** Elimina una anotación y su foto. Devuelve false si no existía. */
+    public boolean eliminar(long id) {
+        Evento encontrado = buscarPorId(id);
+        if (encontrado == null) {
+            return false;
+        }
+        eventos.remove(encontrado);
+        ImagenUtil.borrar(encontrado.getFotoUri());
+        return true;
+    }
+
+    /** Reemplaza los datos de una anotación (mismo id). Devuelve false si no existe. */
+    public boolean actualizar(long id, String titulo, String fecha, String hora, String tipo, String fotoUri) {
+        for (int i = 0; i < eventos.size(); i++) {
+            if (eventos.get(i).getId() == id) {
+                eventos.set(i, new Evento(id, titulo, fecha, hora, tipo, fotoUri));
+                return true;
+            }
+        }
+        return false;
     }
 }

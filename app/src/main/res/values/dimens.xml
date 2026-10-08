@@ -1,0 +1,48 @@
+<resources>
+    <!-- ===== Espaciados (márgenes y paddings) ===== -->
+    <dimen name="separacion_minima">2dp</dimen>
+    <dimen name="separacion_muy_chica">4dp</dimen>
+    <dimen name="separacion_chica">6dp</dimen>
+    <dimen name="separacion_compacta">8dp</dimen>
+    <dimen name="separacion_media">10dp</dimen>
+    <dimen name="separacion_normal">12dp</dimen>
+    <dimen name="separacion_intermedia">14dp</dimen>
+    <dimen name="separacion_amplia">16dp</dimen>
+    <dimen name="separacion_muy_amplia">20dp</dimen>
+    <dimen name="separacion_extra">24dp</dimen>
+    <dimen name="separacion_maxima">32dp</dimen>
+
+    <!-- ===== Tamaños de componentes ===== -->
+    <dimen name="alto_barra_principal">80dp</dimen>
+    <dimen name="alto_barra_secundaria">64dp</dimen>
+    <dimen name="alto_boton">56dp</dimen>
+    <dimen name="alto_vista_previa">180dp</dimen>
+    <dimen name="alto_foto_detalle">240dp</dimen>
+    <dimen name="miniatura_tamano">64dp</dimen>
+    <dimen name="lista_padding_inferior">96dp</dimen>
+
+    <!-- ===== Bordes, esquinas y sombras ===== -->
+    <dimen name="radio_pequeno">8dp</dimen>
+    <dimen name="radio_mediano">12dp</dimen>
+    <dimen name="radio_chip">20dp</dimen>
+    <dimen name="grosor_borde">1dp</dimen>
+    <dimen name="sin_borde">0dp</dimen>
+    <dimen name="sin_elevacion">0dp</dimen>
+
+    <!-- ===== Tamaños de texto ===== -->
+    <dimen name="texto_miniatura">10sp</dimen>
+    <dimen name="texto_pequeno">12sp</dimen>
+    <dimen name="texto_etiqueta">13sp</dimen>
+    <dimen name="texto_subtitulo">16sp</dimen>
+
+    <!-- ===== Agregadas por el rediseño ===== -->
+    <dimen name="radio_grande">28dp</dimen>
+    <dimen name="alto_boton_grande">60dp</dimen>
+    <dimen name="elevacion_suave">2dp</dimen>
+    <dimen name="elevacion_media">4dp</dimen>
+    <dimen name="texto_etiqueta_chica">11sp</dimen>
+    <dimen name="texto_mediano">15sp</dimen>
+    <dimen name="texto_titulo_grande">24sp</dimen>
+
+
+</resources>

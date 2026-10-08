@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,17 +42,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.ageneven.agendaeventos.data.EventoRepositorio;
 import com.ageneven.agendaeventos.model.Evento;
 import com.ageneven.agendaeventos.util.ImagenUtil;
+import com.ageneven.agendaeventos.util.Constantes;
 
 /**
- * Formulario para crear una anotación. La foto es opcional: puede tomarse con la cámara
- * o elegirse de la galería (pidiendo el permiso correspondiente). Si no se agrega ninguna,
- * se usa la imagen predeterminada del tipo.
+ * Formulario para crear o editar una anotación (si llega un id, se edita). La foto es
+ * opcional: puede tomarse con la cámara trasera o frontal, o elegirse de la galería
+ * (pidiendo el permiso correspondiente). Si no se agrega ninguna, se usa la imagen
+ * predeterminada del tipo.
  */
 public class FormActivity extends AppCompatActivity {
 
@@ -68,6 +75,10 @@ public class FormActivity extends AppCompatActivity {
 
     private String fotoUri;        // null = sin foto (se usa la imagen predeterminada)
     private File archivoCamara;    // archivo donde la cámara deja la foto
+    private boolean camaraFrontal = false; // true = se tocó el botón "Cámara frontal"
+    private static final int LARGO_MAXIMO_TITULO = 60;
+    private long idEditando = -1;        // -1 = se está creando una anotación nueva
+    private String fotoOriginal = null;  // foto que ya tenía la anotación (solo al editar)
 
     // ---- Lanzadores (deben registrarse antes de que la Activity inicie) ----
 
@@ -89,8 +100,9 @@ public class FormActivity extends AppCompatActivity {
                 }
             });
 
-    private final ActivityResultLauncher<Uri> tomarFoto = registerForActivityResult(
-            new ActivityResultContracts.TakePicture(), exito -> {
+    private final ActivityResultLauncher<Intent> tomarFoto = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), resultado -> {
+                boolean exito = resultado.getResultCode() == RESULT_OK;
                 if (exito && archivoCamara != null && archivoCamara.exists()) {
                     final File archivo = archivoCamara;
                     procesarEnSegundoPlano(ImageDecoder.createSource(archivo), archivo);
@@ -130,6 +142,7 @@ public class FormActivity extends AppCompatActivity {
         MaterialButton btnTomarFoto = findViewById(R.id.btnTomarFoto);
         MaterialButton btnGaleria = findViewById(R.id.btnGaleria);
         MaterialButton btnGuardar = findViewById(R.id.btnGuardar);
+        MaterialButton btnCamaraFrontal = findViewById(R.id.btnCamaraFrontal);
 
         ajustarBordes(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -162,11 +175,42 @@ public class FormActivity extends AppCompatActivity {
         edtFecha.setOnClickListener(v -> elegirFecha());
         edtHora.setOnClickListener(v -> elegirHora());
 
+        // Modo edición: si llega un id, se cargan los datos de esa anotación
+        idEditando = getIntent().getLongExtra(Constantes.EXTRA_ID, -1);
+        if (idEditando != -1) {
+            Evento anotacion = EventoRepositorio.getInstancia().buscarPorId(idEditando);
+            if (anotacion == null) {
+                Toast.makeText(this, R.string.error_anotacion_no_encontrada, Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            fotoOriginal = anotacion.getFotoUri();
+            toolbar.setTitle(R.string.titulo_editar);
+            btnGuardar.setText(R.string.btn_guardar_cambios);
+
+            // Los campos se rellenan solo la primera vez (no al rotar la pantalla)
+            if (savedInstanceState == null) {
+                edtTitulo.setText(anotacion.getTitulo());
+                edtFecha.setText(anotacion.getFecha());
+                edtHora.setText(anotacion.getHora());
+                fotoUri = anotacion.getFotoUri();
+                for (int i = 0; i < tipos.length; i++) {
+                    if (tipos[i].equals(anotacion.getTipo())) {
+                        spinnerTipo.setSelection(i);
+                    }
+                }
+            }
+        }
+
         // Foto
-        btnTomarFoto.setOnClickListener(v -> pedirPermisoCamara());
+        btnTomarFoto.setOnClickListener(v -> {
+            camaraFrontal = false;
+            pedirPermisoCamara();
+        });
+        btnCamaraFrontal.setOnClickListener(v -> abrirCamaraFrontal());
         btnGaleria.setOnClickListener(v -> pedirPermisoGaleria());
         btnQuitarFoto.setOnClickListener(v -> {
-            ImagenUtil.borrar(fotoUri);
+            borrarFotoTemporal(fotoUri);
             fotoUri = null;
             actualizarVistaPrevia();
         });
@@ -242,14 +286,37 @@ public class FormActivity extends AppCompatActivity {
 
     // ---- Cámara y galería ----
 
+    /** IMPLÍCITO: abre la app de cámara (trasera o frontal, según el botón tocado). */
     private void abrirCamara() {
         try {
             archivoCamara = ImagenUtil.crearArchivoFoto(this);
             Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", archivoCamara);
-            tomarFoto.launch(uri);
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.setClipData(ClipData.newRawUri("foto", uri));
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            if (camaraFrontal) {
+                // Pistas para abrir directamente la cámara frontal (cada app de cámara las interpreta)
+                intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+                intent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true);
+                intent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1);
+            }
+            tomarFoto.launch(intent);
         } catch (IOException | ActivityNotFoundException e) {
             Toast.makeText(this, R.string.error_sin_camara, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /** Valida que el equipo tenga cámara frontal antes de pedir el permiso y abrirla. */
+    private void abrirCamaraFrontal() {
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
+            Toast.makeText(this, R.string.error_sin_camara_frontal, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        camaraFrontal = true;
+        pedirPermisoCamara();
     }
 
     private void abrirGaleria() {
@@ -267,7 +334,7 @@ public class FormActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) return;
                 if (ok) {
-                    ImagenUtil.borrar(fotoUri); // reemplaza la foto anterior
+                    borrarFotoTemporal(fotoUri); // reemplaza la foto anterior
                     fotoUri = Uri.fromFile(destino).toString();
                     actualizarVistaPrevia();
                 } else {
@@ -311,21 +378,91 @@ public class FormActivity extends AppCompatActivity {
                 c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
     }
 
+    /** Guarda una anotación nueva o los cambios de una existente. */
     private void guardar() {
         String titulo = edtTitulo.getText() == null ? "" : edtTitulo.getText().toString().trim();
-        if (titulo.isEmpty()) {
-            edtTitulo.setError(getString(R.string.error_titulo_vacio));
-            edtTitulo.requestFocus();
-            return;
-        }
-
         String fecha = String.valueOf(edtFecha.getText());
         String hora = String.valueOf(edtHora.getText());
         String tipo = (String) spinnerTipo.getSelectedItem();
 
-        EventoRepositorio.getInstancia().agregar(titulo, fecha, hora, tipo, fotoUri);
-        Toast.makeText(this, R.string.anotacion_guardada, Toast.LENGTH_SHORT).show();
+        // Validaciones: si algo está mal, no se guarda
+        if (!validarDatos(titulo, fecha, hora, tipo)) {
+            return;
+        }
+
+        EventoRepositorio repositorio = EventoRepositorio.getInstancia();
+
+        if (idEditando == -1) {
+            // Anotación nueva
+            repositorio.agregar(titulo, fecha, hora, tipo, fotoUri);
+            Toast.makeText(this, R.string.anotacion_guardada, Toast.LENGTH_SHORT).show();
+        } else {
+            // Editando: si no cambió nada, se avisa
+            Evento original = repositorio.buscarPorId(idEditando);
+            if (original != null && sinCambios(original, titulo, fecha, hora, tipo)) {
+                Toast.makeText(this, R.string.error_sin_cambios, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            boolean fueActualizada = repositorio.actualizar(idEditando, titulo, fecha, hora, tipo, fotoUri);
+            if (!fueActualizada) {
+                Toast.makeText(this, R.string.error_actualizar, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Si cambió o quitó la foto, ahora sí se borra la anterior
+            if (fotoOriginal != null && !fotoOriginal.equals(fotoUri)) {
+                ImagenUtil.borrar(fotoOriginal);
+            }
+            Toast.makeText(this, R.string.anotacion_actualizada, Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+        }
         finish(); // MainActivity se actualiza en onResume()
+    }
+
+    /** Revisa que todos los datos estén completos y sean válidos. */
+    private boolean validarDatos(String titulo, String fecha, String hora, String tipo) {
+        if (titulo.isEmpty()) {
+            edtTitulo.setError(getString(R.string.error_titulo_vacio));
+            edtTitulo.requestFocus();
+            return false;
+        }
+        if (titulo.length() > LARGO_MAXIMO_TITULO) {
+            edtTitulo.setError(getString(R.string.error_titulo_largo, LARGO_MAXIMO_TITULO));
+            edtTitulo.requestFocus();
+            return false;
+        }
+        if (tipo == null || tipo.isEmpty()) {
+            Toast.makeText(this, R.string.error_tipo_vacio, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // La fecha y la hora deben existir de verdad (ej: no existe 31/02)
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US);
+        formato.setLenient(false);
+        try {
+            formato.parse(fecha + " " + hora);
+        } catch (ParseException e) {
+            Toast.makeText(this, R.string.error_fecha_invalida, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    /** Compara los datos del formulario con los que ya tenía la anotación. */
+    private boolean sinCambios(Evento original, String titulo, String fecha, String hora, String tipo) {
+        return original.getTitulo().equals(titulo)
+                && original.getFecha().equals(fecha)
+                && original.getHora().equals(hora)
+                && original.getTipo().equals(tipo)
+                && Objects.equals(original.getFotoUri(), fotoUri);
+    }
+
+    /** Borra una foto solo si no es la original de la anotación (esa se borra al guardar). */
+    private void borrarFotoTemporal(String uri) {
+        if (uri != null && !uri.equals(fotoOriginal)) {
+            ImagenUtil.borrar(uri);
+        }
     }
 
     /** Evita que el contenido quede debajo de la barra de estado o de navegación. */
