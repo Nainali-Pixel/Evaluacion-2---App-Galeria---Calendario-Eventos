@@ -13,8 +13,8 @@
         <item name="android:textColor">@color/chip_texto</item>
         <item name="chipBackgroundColor">@color/chip_fondo</item>
         <item name="chipStrokeColor">@color/color_primario</item>
-        <item name="chipStrokeWidth">1dp</item>
-        <item name="chipCornerRadius">20dp</item>
+        <item name="chipStrokeWidth">@dimen/grosor_borde</item>
+        <item name="chipCornerRadius">@dimen/radio_chip</item>
         <item name="checkedIconVisible">false</item>
     </style>
 </resources>

@@ -1,10 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondo"
+    android:orientation="vertical"
     tools:context=".FormActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_encabezado"
+        android:minHeight="@dimen/alto_barra_secundaria"
+        app:navigationContentDescription="@string/desc_volver"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/titulo_form"
+        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+        app:titleTextColor="@color/texto_encabezado" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/separacion_muy_amplia">
+
+            <!-- Título suavizado -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/label_titulo"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/radio_grande"
+                app:boxCornerRadiusBottomStart="@dimen/radio_grande"
+                app:boxCornerRadiusTopEnd="@dimen/radio_grande"
+                app:boxCornerRadiusTopStart="@dimen/radio_grande"
+                app:boxStrokeColor="@color/texto_secundario"
+                app:hintTextColor="@color/texto_secundario">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/separacion_muy_amplia"
+                    android:paddingEnd="@dimen/separacion_muy_amplia" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Fecha y hora suavizados -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/separacion_amplia"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/separacion_compacta"
+                    android:layout_weight="1"
+                    android:hint="@string/label_fecha"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="@dimen/radio_grande"
+                    app:boxCornerRadiusBottomStart="@dimen/radio_grande"
+                    app:boxCornerRadiusTopEnd="@dimen/radio_grande"
+                    app:boxCornerRadiusTopStart="@dimen/radio_grande"
+                    app:boxStrokeColor="@color/texto_secundario"
+                    app:hintTextColor="@color/texto_secundario">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtFecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:paddingStart="@dimen/separacion_muy_amplia"
+                        android:paddingEnd="@dimen/separacion_muy_amplia" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/separacion_compacta"
+                    android:layout_weight="1"
+                    android:hint="@string/label_hora"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="@dimen/radio_grande"
+                    app:boxCornerRadiusBottomStart="@dimen/radio_grande"
+                    app:boxCornerRadiusTopEnd="@dimen/radio_grande"
+                    app:boxCornerRadiusTopStart="@dimen/radio_grande"
+                    app:boxStrokeColor="@color/texto_secundario"
+                    app:hintTextColor="@color/texto_secundario">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtHora"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:paddingStart="@dimen/separacion_muy_amplia"
+                        android:paddingEnd="@dimen/separacion_muy_amplia" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Tipo con Selector suavizado -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/separacion_muy_amplia"
+                android:layout_marginStart="@dimen/separacion_normal"
+                android:text="@string/label_tipo"
+                android:textColor="@color/texto_secundario"
+                android:textSize="@dimen/texto_etiqueta" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/separacion_compacta"
+                app:cardCornerRadius="@dimen/radio_grande"
+                app:cardElevation="@dimen/sin_elevacion"
+                app:strokeColor="@color/texto_secundario"
+                app:strokeWidth="@dimen/grosor_borde">
+
+                <Spinner
+                    android:id="@+id/spinnerTipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/alto_boton"
+                    android:background="@color/white"
+                    android:paddingStart="@dimen/separacion_amplia"
+                    android:paddingEnd="@dimen/separacion_amplia" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Foto -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/separacion_muy_amplia"
+                android:layout_marginStart="@dimen/separacion_normal"
+                android:text="@string/label_foto"
+                android:textColor="@color/texto_secundario"
+                android:textSize="@dimen/texto_etiqueta" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/separacion_compacta"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTomarFoto"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/alto_boton"
+                    android:layout_marginEnd="@dimen/separacion_compacta"
+                    android:layout_weight="1"
+                    android:text="@string/btn_tomar_foto"
+                    android:textColor="@color/texto_sobre_primario"
+                    app:backgroundTint="@color/color_primario"
+                    app:cornerRadius="@dimen/radio_grande"
+                    app:strokeColor="@color/texto_secundario"
+                    app:strokeWidth="@dimen/grosor_borde" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGaleria"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/alto_boton"
+                    android:layout_marginStart="@dimen/separacion_compacta"
+                    android:layout_weight="1"
+                    android:text="@string/btn_elegir_galeria"
+                    android:textColor="@color/texto_sobre_primario"
+                    app:backgroundTint="@color/color_primario"
+                    app:cornerRadius="@dimen/radio_grande"
+                    app:strokeColor="@color/texto_secundario"
+                    app:strokeWidth="@dimen/grosor_borde" />
+            </LinearLayout>
+
+            <!-- Cámara frontal -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCamaraFrontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/alto_boton"
+                android:layout_marginTop="@dimen/separacion_compacta"
+                android:text="@string/btn_camara_frontal"
+                android:textColor="@color/texto_sobre_primario"
+                app:backgroundTint="@color/color_primario"
+                app:cornerRadius="@dimen/radio_grande"
+                app:strokeColor="@color/texto_secundario"
+                app:strokeWidth="@dimen/grosor_borde" />
+
+            <!-- Vista previa suavizada -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/alto_vista_previa"
+                android:layout_marginTop="@dimen/separacion_amplia"
+                app:cardCornerRadius="@dimen/radio_grande"
+                app:cardElevation="@dimen/elevacion_suave"
+                app:strokeColor="@color/texto_secundario"
+                app:strokeWidth="@dimen/grosor_borde">
+
+                <ImageView
+                    android:id="@+id/imgVistaPrevia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/desc_vista_previa"
+                    android:scaleType="centerCrop" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnQuitarFoto"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/btn_quitar_foto"
+                android:textColor="@color/texto_secundario"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/alto_boton_grande"
+                android:layout_marginTop="@dimen/separacion_extra"
+                android:text="@string/btn_guardar"
+                android:textSize="@dimen/texto_subtitulo"
+                android:textColor="@color/texto_sobre_acento"
+                app:backgroundTint="@color/color_acento"
+                app:cornerRadius="@dimen/radio_grande"
+                app:strokeColor="@color/texto_secundario"
+                app:strokeWidth="@dimen/grosor_borde" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

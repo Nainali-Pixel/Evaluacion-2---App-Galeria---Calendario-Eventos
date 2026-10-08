@@ -1,22 +1,22 @@
 <resources>
-    <!-- Temática: Negro y mostaza elegante -->
-    <color name="color_encabezado">#1C1C1C</color>
-    <color name="texto_encabezado">#FFFFFF</color>
-    <color name="subtitulo_encabezado">#BDBDBD</color>
+    <!-- Temática: Kiwi  -->
+    <color name="color_encabezado">#7A9922</color>
+    <color name="texto_encabezado">#2B1D02</color>
+    <color name="subtitulo_encabezado">#2B1D02</color>
 
-    <color name="color_primario">#1C1C1C</color>
+    <color name="color_primario">#5C7515</color>
     <color name="texto_sobre_primario">#FFFFFF</color>
-    <color name="color_acento">#E8A500</color>
-    <color name="texto_sobre_acento">#1C1C1C</color>
+    <color name="color_acento">#B38D28</color>
+    <color name="texto_sobre_acento">#2B1D02</color>
 
-    <color name="fondo">#F7F7F5</color>
+    <color name="fondo">#EBE9AC</color>
     <color name="superficie">#FFFFFF</color>
-    <color name="texto_principal">#1C1C1C</color>
-    <color name="texto_secundario">#6B6B6B</color>
+    <color name="texto_principal">#2B1D02</color>
+    <color name="texto_secundario">#6B5A2A</color>
 
-    <color name="tipo_cumpleanos">#B8860B</color>
-    <color name="tipo_evento">#1C1C1C</color>
-    <color name="tipo_otro">#8A8A8A</color>
+    <color name="tipo_cumpleanos">#8A6A12</color>
+    <color name="tipo_evento">#5C7515</color>
+    <color name="tipo_otro">#7A5706</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
