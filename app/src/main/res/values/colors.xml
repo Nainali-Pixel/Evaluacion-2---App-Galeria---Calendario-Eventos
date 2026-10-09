@@ -20,4 +20,5 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="fondo_velo">#CCEBE9AC</color>
 </resources>
