@@ -13,4 +13,9 @@ public final class Constantes {
     public static final String EXTRA_TIPO = "extra_tipo";
     public static final String EXTRA_FOTO_URI = "extra_foto_uri";
 
+    // Broadcast "se guardó una anotación" (explícitos 8 y 13)
+    public static final String ACCION_EVENTO_GUARDADO = "com.ageneven.agendaeventos.EVENTO_GUARDADO";
+
+    // Broadcast "se eliminó una anotación" (explícito 8)
+    public static final String ACCION_EVENTO_ELIMINADO = "com.ageneven.agendaeventos.EVENTO_ELIMINADO";
 }
