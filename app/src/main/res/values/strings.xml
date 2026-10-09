@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AgendaEventos</string>
-    <string name="titulo_main">Mis fechas</string>
+    <string name="titulo_main">Mis fechas 🥝</string>
     <string name="subtitulo_main">Galería conectada al calendario</string>
     <string name="filtro_todos">Todos</string>
     <string name="filtro_cumpleanos">Cumpleaños</string>
@@ -12,7 +12,7 @@
     <string name="fecha_hora">%1$s · %2$s</string>
 
     <!-- Detalle -->
-    <string name="titulo_detalle">Detalle</string>
+    <string name="titulo_detalle">Detalle 🥝</string>
     <string name="desc_volver">Volver</string>
     <string name="desc_foto_evento">Foto o imagen de la anotación</string>
     <string name="toca_ampliar">Toca para ampliar</string>
@@ -27,7 +27,7 @@
     <string name="elegir_app_correo">Enviar recordatorio con…</string>
 
     <!-- Formulario -->
-    <string name="titulo_form">Nueva anotación</string>
+    <string name="titulo_form">Nueva anotación 🥝</string>
     <string name="label_titulo">Título</string>
     <string name="label_fecha">Fecha</string>
     <string name="label_hora">Hora</string>
